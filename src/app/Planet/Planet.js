@@ -1,5 +1,6 @@
 class Planet {
     constructor(id){
+        this.id = id;
         this.name = null;
         this.gravity = 0.0;
     }

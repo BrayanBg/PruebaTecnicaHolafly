@@ -14,7 +14,7 @@ const getPlanetId = async (id) => {
             gravity: parseFloat(gravity[0])
         }
 
-        const planetDB = new Planet();
+        const planetDB = new Planet(id);
         await planetDB.init(data);
         await db.savePlanet(planetDB);
         return planetDB;
