@@ -6,8 +6,13 @@ class AbstractPeople {
         }
     }
 
-    async init(){
-        throw new Error('To be implemented');
+    async init(data){
+        this.id = data.id;
+        this.name = data.name;
+        this.mass = data.mass;
+        this.height = data.height;
+        this.homeworldName = data.homeworldName;
+        this.homeworldId = data.homeworldId;
     }
 
     getId() {
@@ -38,3 +43,5 @@ class AbstractPeople {
         throw new Error('To be implemented');
     }
 }
+
+module.exports = AbstractPeople;
