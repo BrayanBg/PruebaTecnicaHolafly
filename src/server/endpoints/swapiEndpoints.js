@@ -15,7 +15,9 @@ const applySwapiEndpoints = (server, app) => {
     });
 
     server.get('/hfswapi/getPeople/:id', async (req, res) => {
-        res.sendStatus(501);
+        let id = req.params.id;
+        let val = await app.services.people.getPeopleId(id);
+        res.send(val);
     });
 
     server.get('/hfswapi/getPlanet/:id', async (req, res) => {

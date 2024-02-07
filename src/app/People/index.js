@@ -1,5 +1,7 @@
 const WookieePeople = require('./wookieePeople');
-const CommonPeople = require('./CommonPeople');
+const CommonPeople = require('./commonPeople');
+const db = require('../db');
+const swapiFunctions = require('../swapiFunctions')
 
 const peopleFactory = async (id, lang) => {
     let people = null;
@@ -12,4 +14,11 @@ const peopleFactory = async (id, lang) => {
     return people;
 }
 
-module.exports = { peopleFactory }
+const getPeopleId = async (id) => {
+    let person = await db.getPeopleId(id);
+    let data = person.dataValues;
+    const commonPerson = new CommonPeople(id, data);
+    return commonPerson;
+}
+
+module.exports = { peopleFactory, getPeopleId }

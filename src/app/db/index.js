@@ -82,9 +82,20 @@ const watchDB = async () => {
   console.table(loggings);
 }
 
+const getPeopleId = async (id) => {
+  try {
+      const result = await db.swPeople.findOne({ where: { id: id } });
+      return result || null;
+  } catch (error) {
+      console.error('Error en getPeopleId:', error);
+      throw error;
+  }
+}
+
 db.initDB = initDB;
 db.populateDB = populateDB;
 db.watchDB = watchDB;
 db.deleteDB = deleteDB;
+db.getPeopleId = getPeopleId;
 
 module.exports = db;
