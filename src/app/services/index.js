@@ -1,5 +1,6 @@
 const people = require('../People');
 const planet = require('../Planet');
+const logging = require('../Logging');
 
 const getWeightOnPlanetRandom = async () => {
     let idPeople = Math.floor(Math.random() * 83) + 1;//limite de 83 personas maximo en el swapi
@@ -13,4 +14,4 @@ const getWeightOnPlanetRandom = async () => {
 
 }
 
-module.exports = { people, planet, getWeightOnPlanetRandom };
+module.exports = { people, planet, logging, getWeightOnPlanetRandom };
