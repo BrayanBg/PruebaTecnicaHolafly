@@ -27,7 +27,8 @@ const applySwapiEndpoints = (server, app) => {
     });
 
     server.get('/hfswapi/getWeightOnPlanetRandom', async (req, res) => {
-        res.sendStatus(501);
+        await app.services.getWeightOnPlanetRandom();
+        res.sendStatus(200);
     });
 
     server.get('/hfswapi/getLogs',async (req, res) => {
