@@ -68,16 +68,84 @@ const watchDB = async () => {
     raw: true,
   });
 
+  const loggings = await db.logging.findAll({
+    raw: true,
+  })
+
   console.log("============= swPlanet =============");
   console.table(planets);
   console.log("\n");
   console.log("============= swPeople =============");
   console.table(people);
+  console.log("\n");
+  console.log("============= logging =============");
+  console.table(loggings);
+}
+
+const watchLoggings = async () => {
+
+  const loggings = await db.logging.findAll({
+    raw: true,
+  })
+  return loggings;
+}
+
+const getPeopleId = async (id) => {
+  try {
+      const result = await db.swPeople.findOne({ where: { id: id } });
+      return result || null;
+  } catch (error) {
+      console.error('Error en getPeopleId:', error);
+      throw error;
+  }
+}
+
+const savePeople = async (data) => {
+  try{
+    await db.swPeople.bulkCreate([data]);
+  } catch(error) {
+    console.error('Error en savePeople:', error);
+      throw error;
+  }
+}
+
+const getPlanetId = async (id) => {
+  try {
+      const result = await db.swPlanet.findOne({ where: { id: id } });
+      return result || null;
+  } catch (error) {
+      console.error('Error en getPlanetId:', error);
+      throw error;
+  }
+}
+
+const savePlanet = async (data) => {
+  try{
+    await db.swPlanet.bulkCreate([data]);
+  } catch(error) {
+    console.error('Error en savePlanet:', error);
+      throw error;
+  }
+}
+
+const saveLogging = async (data) => {
+  try{
+    await db.logging.bulkCreate([data]);
+  } catch(error) {
+    console.error('Error en savePlanet:', error);
+      throw error;
+  }
 }
 
 db.initDB = initDB;
 db.populateDB = populateDB;
 db.watchDB = watchDB;
 db.deleteDB = deleteDB;
+db.getPeopleId = getPeopleId;
+db.savePeople = savePeople;
+db.getPlanetId = getPlanetId;
+db.savePlanet = savePlanet;
+db.watchLoggings = watchLoggings;
+db.saveLogging = saveLogging;
 
 module.exports = db;

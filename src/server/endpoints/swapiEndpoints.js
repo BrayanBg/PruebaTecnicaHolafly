@@ -15,19 +15,32 @@ const applySwapiEndpoints = (server, app) => {
     });
 
     server.get('/hfswapi/getPeople/:id', async (req, res) => {
-        res.sendStatus(501);
+        await app.services.logging.saveLogging(req, '/hfswapi/getPeople/:id');
+        let id = req.params.id;
+        let val = await app.services.people.getPeopleId(id);
+        res.send(val);
     });
 
     server.get('/hfswapi/getPlanet/:id', async (req, res) => {
-        res.sendStatus(501);
+        await app.services.logging.saveLogging(req, '/hfswapi/getPlanet/:id');
+        let id = req.params.id;
+        let val = await app.services.planet.getPlanetId(id);
+        res.send(val);
     });
 
     server.get('/hfswapi/getWeightOnPlanetRandom', async (req, res) => {
-        res.sendStatus(501);
+        await app.services.logging.saveLogging(req, '/hfswapi/getWeightOnPlanetRandom');
+        try{
+            let val = await app.services.getWeightOnPlanetRandom();
+            res.send(val);
+        } catch (err) {
+            console.log(err);
+            res.status(500).send(`${err}.`);
+        }
     });
 
     server.get('/hfswapi/getLogs',async (req, res) => {
-        const data = await app.db.logging.findAll();
+        const data = await app.services.logging.getLoggings();
         res.send(data);
     });
 
