@@ -1,3 +1,4 @@
-const people = require('../People')
+const people = require('../People');
+const planet = require('../Planet');
 
-module.exports = { people };
+module.exports = { people, planet };

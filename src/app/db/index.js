@@ -101,11 +101,32 @@ const savePeople = async (data) => {
   }
 }
 
+const getPlanetId = async (id) => {
+  try {
+      const result = await db.swPlanet.findOne({ where: { id: id } });
+      return result || null;
+  } catch (error) {
+      console.error('Error en getPlanetId:', error);
+      throw error;
+  }
+}
+
+const savePlanet = async (data) => {
+  try{
+    await db.swPlanet.bulkCreate([data]);
+  } catch(error) {
+    console.error('Error en savePlanet:', error);
+      throw error;
+  }
+}
+
 db.initDB = initDB;
 db.populateDB = populateDB;
 db.watchDB = watchDB;
 db.deleteDB = deleteDB;
 db.getPeopleId = getPeopleId;
 db.savePeople = savePeople;
+db.getPlanetId = getPlanetId;
+db.savePlanet = savePlanet;
 
 module.exports = db;

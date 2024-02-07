@@ -1,10 +1,12 @@
 class Planet {
     constructor(id){
-        throw new Error('To be implemented');
+        this.name = null;
+        this.gravity = 0.0;
     }
 
-    async init(){
-        throw new Error('To be implemented');
+    async init(data){
+        this.name = data.name;
+        this.gravity = data.gravity;
     }
 
     getName() {
@@ -15,3 +17,5 @@ class Planet {
         return this.gravity;
     }
 }
+
+module.exports = Planet;
