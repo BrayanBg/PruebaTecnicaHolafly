@@ -11,8 +11,8 @@ class AbstractPeople {
         this.name = data.name;
         this.mass = data.mass;
         this.height = data.height;
-        this.homeworldName = data.homeworldName;
-        this.homeworldId = data.homeworldId;
+        this.homeworld_name = data.homeworld_name;
+        this.homeworld_id = data.homeworld_id;
     }
 
     getId() {
@@ -41,6 +41,30 @@ class AbstractPeople {
 
     getWeightOnPlanet(planetId){
         throw new Error('To be implemented');
+    }
+
+    setId(id) {
+        this.id = id;
+    }
+ 
+    setName(name) {
+        this.name = name;
+    }
+
+    setMass(mass) {
+        this.mass = mass;
+    }
+
+    setHeight(height) {
+        this.height = height;
+    }
+
+    setHomeworldName(homeworldName) {
+        this.homeworldName = homeworldName;
+    }
+
+    setHomeworlId(homeworlId) {
+        this.homeworlId = homeworlId;
     }
 }
 
