@@ -30,8 +30,13 @@ const applySwapiEndpoints = (server, app) => {
 
     server.get('/hfswapi/getWeightOnPlanetRandom', async (req, res) => {
         await app.services.logging.saveLogging(req, '/hfswapi/getWeightOnPlanetRandom');
-        await app.services.getWeightOnPlanetRandom();
-        res.sendStatus(200);
+        try{
+            let val = await app.services.getWeightOnPlanetRandom();
+            res.send(val);
+        } catch (err) {
+            console.log(err);
+            res.status(500).send(`${err}.`);
+        }
     });
 
     server.get('/hfswapi/getLogs',async (req, res) => {

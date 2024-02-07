@@ -1,3 +1,4 @@
+const planet = require('../Planet');
 class AbstractPeople {
 
     constructor(id) {
@@ -39,8 +40,9 @@ class AbstractPeople {
         return this.homeworlId;
     }
 
-    getWeightOnPlanet(planetId){
-        throw new Error('To be implemented');
+    async getWeightOnPlanet(planetId){
+        const swPlanet = await planet.getPlanetId(planetId);
+        return this.getMass() * swPlanet.getGravity();
     }
 
     setId(id) {

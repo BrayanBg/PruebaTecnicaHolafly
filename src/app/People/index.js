@@ -31,7 +31,7 @@ const getPeopleId = async (id) => {
             homeworld_id: `/${parts[parts.length - 3]}/${parts[parts.length - 2]}`
         }
         
-        if(person.species[0].includes("3")) {
+        if(person.species[0] && person.species[0].includes("3")) {
             let swPeople = await peopleFactory(id, 'wookiee', data);
             await db.savePeople(swPeople);
             return swPeople;

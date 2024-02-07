@@ -7,11 +7,19 @@ const getWeightOnPlanetRandom = async () => {
     let idPlanet = Math.floor(Math.random() * 60) + 1;//limite de 60 planetas maximo en el swapi
 
     let swPeople = await people.getPeopleId(idPeople);
+    
+    if(swPeople.homeworld_id.includes(idPlanet)) {
+        throw new Error('HOME PLANET'); 
+    }
+    
+    let weightOnPlanet = await swPeople.getWeightOnPlanet(idPlanet);
     let swPlanet = await planet.getPlanetId(idPlanet);
 
-    console.log(swPeople.mass);
-    console.log(swPlanet.gravity);
-
+    return {
+        people: swPeople.getName(),
+        planet: swPlanet.getName(),
+        weight_on_planet: weightOnPlanet
+    }
 }
 
 module.exports = { people, planet, logging, getWeightOnPlanetRandom };
