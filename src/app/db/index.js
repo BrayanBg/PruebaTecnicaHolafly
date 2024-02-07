@@ -82,6 +82,14 @@ const watchDB = async () => {
   console.table(loggings);
 }
 
+const watchLoggings = async () => {
+
+  const loggings = await db.logging.findAll({
+    raw: true,
+  })
+  return loggings;
+}
+
 const getPeopleId = async (id) => {
   try {
       const result = await db.swPeople.findOne({ where: { id: id } });
@@ -120,6 +128,15 @@ const savePlanet = async (data) => {
   }
 }
 
+const saveLogging = async (data) => {
+  try{
+    await db.logging.bulkCreate([data]);
+  } catch(error) {
+    console.error('Error en savePlanet:', error);
+      throw error;
+  }
+}
+
 db.initDB = initDB;
 db.populateDB = populateDB;
 db.watchDB = watchDB;
@@ -128,5 +145,7 @@ db.getPeopleId = getPeopleId;
 db.savePeople = savePeople;
 db.getPlanetId = getPlanetId;
 db.savePlanet = savePlanet;
+db.watchLoggings = watchLoggings;
+db.saveLogging = saveLogging;
 
 module.exports = db;
