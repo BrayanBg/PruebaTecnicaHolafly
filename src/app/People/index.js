@@ -1,7 +1,8 @@
 const WookieePeople = require('./wookieePeople');
 const CommonPeople = require('./commonPeople');
 const db = require('../db');
-const swapiFunctions = require('../swapiFunctions')
+const planet = require('../Planet');
+const swapiFunctions = require('../swapiFunctions');
 
 const peopleFactory = async (id, lang) => {
     let people = null;
@@ -19,14 +20,14 @@ const getPeopleId = async (id) => {
     
     if(person == null) {
         person = await swapiFunctions.genericRequest(`https://swapi.dev/api/people/${id}`, 'GET', null, true);
-        let planet = await swapiFunctions.genericRequest(`${person.homeworld}`, 'GET', null, true);
         const parts = person.homeworld.split('/');
-
+        let planetApi = await planet.getPlanetId(parts[parts.length - 2]);
+        
         let data = {
             name: person.name,
             mass: person.mass,
             height: person.height,
-            homeworld_name: planet.name,
+            homeworld_name: planetApi.name,
             homeworld_id: `/${parts[parts.length - 3]}/${parts[parts.length - 2]}`
         }    
 
