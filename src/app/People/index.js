@@ -16,8 +16,26 @@ const peopleFactory = async (id, lang) => {
 
 const getPeopleId = async (id) => {
     let person = await db.getPeopleId(id);
-    let data = person.dataValues;
-    const commonPerson = new CommonPeople(id, data);
+    
+    if(person == null) {
+        person = await swapiFunctions.genericRequest(`https://swapi.dev/api/people/${id}`, 'GET', null, true);
+        let planet = await swapiFunctions.genericRequest(`${person.homeworld}`, 'GET', null, true);
+        const parts = person.homeworld.split('/');
+
+        let data = {
+            name: person.name,
+            mass: person.mass,
+            height: person.height,
+            homeworld_name: planet.name,
+            homeworld_id: `/${parts[parts.length - 3]}/${parts[parts.length - 2]}`
+        }    
+
+        const commonPerson = new CommonPeople(id, data);
+        await db.savePeople(commonPerson);
+        return commonPerson;
+    }
+
+    const commonPerson = new CommonPeople(id, person.dataValues);
     return commonPerson;
 }
 

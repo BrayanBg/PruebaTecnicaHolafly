@@ -92,10 +92,20 @@ const getPeopleId = async (id) => {
   }
 }
 
+const savePeople = async (data) => {
+  try{
+    await db.swPeople.bulkCreate([data]);
+  } catch(error) {
+    console.error('Error en savePeople:', error);
+      throw error;
+  }
+}
+
 db.initDB = initDB;
 db.populateDB = populateDB;
 db.watchDB = watchDB;
 db.deleteDB = deleteDB;
 db.getPeopleId = getPeopleId;
+db.savePeople = savePeople;
 
 module.exports = db;
